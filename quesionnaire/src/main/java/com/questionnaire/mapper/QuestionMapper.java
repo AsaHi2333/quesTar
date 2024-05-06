@@ -1,6 +1,5 @@
 package com.questionnaire.mapper;
 
-import com.questionnaire.pojo.Paper;
 import com.questionnaire.pojo.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

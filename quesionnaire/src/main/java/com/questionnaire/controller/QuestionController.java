@@ -1,11 +1,9 @@
 package com.questionnaire.controller;
 
-import com.questionnaire.pojo.Paper;
 import com.questionnaire.pojo.Question;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.service.QuestionService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
