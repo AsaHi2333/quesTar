@@ -14,5 +14,4 @@ public class Question {
     private Integer paperId;//试卷ID，外键
     private Integer questionType;//问题类型：1：单选题2：多选题3：简答题
     private String questionTitle;//问题标题
-    private String questionOption;// 问题的选项：1.选择题：[option1,option2,option3...]2.简答题：空字符串
 }
