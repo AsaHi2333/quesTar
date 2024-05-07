@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 @Mapper
+
 public interface PaperMapper {
     //根据用户id查询问卷
     @Select("SELECT * from paper where user_id=#{userId}")
