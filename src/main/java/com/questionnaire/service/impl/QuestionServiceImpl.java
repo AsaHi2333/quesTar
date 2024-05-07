@@ -28,6 +28,6 @@ public class QuestionServiceImpl implements QuestionService {
     //新增问题
     @Override
     public void add(Question question) {
-
+        questionMapper.insert(question);
     }
 }
