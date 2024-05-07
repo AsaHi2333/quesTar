@@ -11,7 +11,7 @@ public interface PaperService {
     public List<Paper> list(String userId);
 
     //根据问卷id删除问卷
-    public void delete(String id);
+    public void delete(Integer id);
 
     //新建问卷
     public void add(Paper paper);

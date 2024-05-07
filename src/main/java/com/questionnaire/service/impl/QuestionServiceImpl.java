@@ -12,8 +12,22 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
+
+    //根据问卷id查询问题
     @Override
-    public List<Question> list(String id) {
-        return questionMapper.listQuestionsById(id);
+    public List<Question> list(Integer paperId) {
+        return questionMapper.listQuestionsByPaperId(paperId);
+    }
+
+    //根据问题id删除问题
+    @Override
+    public void delete(Integer id) {
+        questionMapper.deletePaperById(id);
+    }
+
+    //新增问题
+    @Override
+    public void add(Question question) {
+
     }
 }

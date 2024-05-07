@@ -21,7 +21,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     //根据问卷id删除问卷
-    public void delete(String id){
+    public void delete(Integer id){
         paperMapper.deletePaperById(id);
     }
 

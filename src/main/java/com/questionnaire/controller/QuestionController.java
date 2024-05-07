@@ -1,13 +1,12 @@
 package com.questionnaire.controller;
 
+import com.questionnaire.pojo.Paper;
 import com.questionnaire.pojo.Question;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.service.QuestionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +16,30 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @PostMapping("/questionlist/{id}")
-    public Result list(@PathVariable String id){
-        log.info("根据问卷id查询问题:{}",id);
-        //调用questionService查询问卷
-        List<Question> questionList=questionService.list(id);
+    //根据问卷id查询问题
+    @GetMapping("/question/list/{paperId}")
+    public Result list(@PathVariable int paperId){
+        log.info("根据问卷id查询问题:{}",paperId);
+        //调用QuestionService查询问题
+        List<Question> questionList=questionService.list(paperId);
         return Result.success(questionList);
+    }
+
+    //根据问题id删除问题
+    @DeleteMapping("/question/delete/{id}")
+    public Result delete(@PathVariable Integer id){
+        log.info("根据问卷id删除问卷:{}",id);
+        //调用PaperService删除问卷
+        questionService.delete(id);
+        return Result.success();
+    }
+
+    //新增问题
+    @PostMapping("/question/add")
+    public Result add(@RequestBody Question question){
+        log.info("新建问卷:{}",question);
+        //调用PaperService新建问卷
+        questionService.add(question);
+        return Result.success();
     }
 }

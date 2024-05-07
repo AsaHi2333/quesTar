@@ -6,20 +6,15 @@
     <update id="update">
         update paper
         <set>
-
-
             <if test="title != null and title !=''">
                 title=#{title},
             </if>
-
             <if test="status != null">
                 status=#{status},
             </if>
-
             <if test="startTime != null">
                 start_time=#{startTime},
             </if>
-
             <if test="endTime != null">
                 end_time=#{endTime}
             </if>

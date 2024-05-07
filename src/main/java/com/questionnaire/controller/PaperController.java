@@ -26,7 +26,7 @@ public class PaperController {
 
     //根据问卷id删除问卷
     @DeleteMapping("/paper/delete/{id}")
-    public Result delete(@PathVariable String id){
+    public Result delete(@PathVariable Integer id){
         log.info("根据问卷id删除问卷:{}",id);
         //调用PaperService删除问卷
         paperService.delete(id);
@@ -46,7 +46,7 @@ public class PaperController {
     @PutMapping("/paper/update")
     public Result update(@RequestBody Paper paper){
         log.info("修改问卷:{}",paper);
-        //调用PaperService新建问卷
+        //调用PaperService修改问卷
         paperService.update(paper);
         return Result.success();
     }

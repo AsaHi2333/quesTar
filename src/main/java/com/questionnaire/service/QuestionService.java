@@ -7,6 +7,12 @@ import java.util.List;
 
 
 public interface QuestionService {
-    //查询对应问卷id查询问题
-    List<Question> list(String id);
+    //根据问卷id查询问题
+    List<Question> list(Integer paperId);
+
+    //根据问题id删除问题
+    void delete(Integer id);
+
+    //新增问题
+    void add(Question question);
 }
