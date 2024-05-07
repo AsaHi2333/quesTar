@@ -30,4 +30,10 @@ public class QuestionServiceImpl implements QuestionService {
     public void add(Question question) {
         questionMapper.insert(question);
     }
+
+    //修改问题
+    @Override
+    public void update(Question question) {
+        questionMapper.update(question);
+    }
 }

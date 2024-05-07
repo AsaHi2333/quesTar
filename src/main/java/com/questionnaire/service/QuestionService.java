@@ -15,4 +15,7 @@ public interface QuestionService {
 
     //新增问题
     void add(Question question);
+
+    //修改问题
+    void update(Question question);
 }

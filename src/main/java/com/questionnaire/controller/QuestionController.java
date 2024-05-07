@@ -42,4 +42,15 @@ public class QuestionController {
         questionService.add(question);
         return Result.success();
     }
+
+    //修改问题（标题、问题类型、问题选项）
+    @PutMapping("/question/update")
+    public Result update(@RequestBody Question question){
+        log.info("修改问卷:{}",question);
+        //调用QuestionService修改问题
+        questionService.update(question);
+        return Result.success();
+    }
+
+
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.QuestionMapper">
+    <insert id="insert">
+        INSERT question
+            <set>
+                paper_id = #{paperId},
+                question_type = #{questionType},
+                question_title = #{questionTitle},
+                <if test = "questionType != 3">
+                    question_option = #{questionOption},
+                </if>
+                <if test = "questionType == 3">
+                    question_option = ''
+                </if>
+            </set>
+    </insert>
+
+    <update id="update">
+        update question
+        <set>
+            <if test = "questionType != null">
+                question_type=#{questionType},
+            </if>
+            <if test = "questionTitle != null and questionTitle != '' ">
+                question_title=#{questionTitle},
+            </if>
+            <if test = "questionType != 3 and questionType != null and questionOption != '' and questionOption != null ">
+                question_option = #{questionOption}
+            </if>
+            <if test = "questionType == 3">
+                question_option = ''
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

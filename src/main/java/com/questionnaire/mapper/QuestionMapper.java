@@ -16,8 +16,8 @@ public interface QuestionMapper {
     void deletePaperById(Integer id);
 
     //添加一个问题
-    @Insert("INSERT INTO question (paper_id, question_type, question_title, question_option) VALUES (#{paperId},#{questionType},#{questionTitle},#{questionOption})")
     void insert(Question question);
 
-    //
+    //修改问题
+    void update(Question question);
 }
