@@ -8,7 +8,7 @@
             <set>
                 paper_id = #{paperId},
                 question_type = #{questionType},
-                question_title = #{questionTitle},
+                question_title = #{questionTitle}
             </set>
     </insert>
 

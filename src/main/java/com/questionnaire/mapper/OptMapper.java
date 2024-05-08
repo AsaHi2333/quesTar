@@ -16,4 +16,10 @@ public interface OptMapper {
     //根据选项id删除选项
     @Delete("DELETE from opt where id=#{id}")
     void deleteOptById(Integer id);
+
+    //新建选项
+    void insert(Opt opt);
+
+    //修改选项
+    void update(Opt opt);
 }

@@ -24,4 +24,16 @@ public class OptServiceImpl implements OptService {
     public void delete(Integer id) {
         optMapper.deleteOptById(id);
     }
+
+    //新建选项
+    @Override
+    public void add(Opt opt) {
+        optMapper.insert(opt);
+    }
+
+    //修改选项
+    @Override
+    public void update(Opt opt) {
+        optMapper.update(opt);
+    }
 }

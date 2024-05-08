@@ -32,24 +32,23 @@ public class OptController {
         optService.delete(id);
         return Result.success();
     }
-    /*
-    //新建问卷
-    @PostMapping("/paper/add")
-    public Result add(@RequestBody Paper paper){
-        log.info("新建问卷:{}",paper);
-        //调用PaperService新建问卷
-        paperService.add(paper);
+
+    //新建选项
+    @PostMapping("/opt/add")
+    public Result add(@RequestBody Opt opt){
+        log.info("新建问卷:{}",opt);
+        //调用OptService新增选项
+        optService.add(opt);
         return Result.success();
     }
 
-    //修改问卷（标题、开始时间、结束时间）
-    @PutMapping("/paper/update")
-    public Result update(@RequestBody Paper paper){
-        log.info("修改问卷:{}",paper);
-        //调用PaperService修改问卷
-        paperService.update(paper);
+    //修改选项
+    @PutMapping("/opt/update")
+    public Result update(@RequestBody Opt opt){
+        log.info("修改选项:{}",opt);
+        //调用OptService修改选项
+        optService.update(opt);
         return Result.success();
     }
 
- */
 }

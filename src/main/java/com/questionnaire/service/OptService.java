@@ -10,4 +10,10 @@ public interface OptService {
 
     //根据选项id删除选项
     void delete(Integer id);
+
+    //新建选项
+    void add(Opt opt);
+
+    //修改选项
+    void update(Opt opt);
 }

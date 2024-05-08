@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.OptMapper">
+    <insert id="insert">
+        INSERT opt
+        <set>
+            paper_id = #{paperId},
+            question_id = #{questionId},
+            opt_name = #{optName}
+        </set>
+    </insert>
+    <update id="update">
+        UPDATE opt
+        <set>
+            <if test = "optName != null and optName != '' ">
+                opt_name=#{optName}
+            </if>
+        </set>
+        where
+            id = #{id}
+    </update>
+</mapper>
