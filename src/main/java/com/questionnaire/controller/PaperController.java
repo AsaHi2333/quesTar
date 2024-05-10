@@ -24,6 +24,15 @@ public class PaperController {
         return Result.success(paperList);
     }
 
+    //根据问卷id查询问卷
+    @GetMapping("/paper/{id}")
+    public Result list(@PathVariable Integer id){
+        log.info("根据问卷id查询问卷:{}",id);
+        //调用PaperService查询问卷
+        Paper paper =paperService.list(id);
+        return Result.success(paper);
+    }
+
     //根据问卷id删除问卷
     @DeleteMapping("/paper/delete/{id}")
     public Result delete(@PathVariable Integer id){

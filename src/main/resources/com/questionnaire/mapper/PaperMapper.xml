@@ -7,7 +7,6 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT paper
             <set>
-                id=#{id},
                 user_id=#{userId},
                 title=#{title},
                 create_time=#{createTime},
@@ -41,6 +40,10 @@
 
     <select id="listPaperByUserId" resultType="com.questionnaire.pojo.Paper">
         SELECT * from paper where user_id=#{userId}
+    </select>
+
+    <select id="listPaperById" resultType="com.questionnaire.pojo.Paper">
+        SELECT * from paper where id=#{id}
     </select>
 
 </mapper>

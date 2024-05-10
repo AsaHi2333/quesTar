@@ -10,6 +10,9 @@ public interface PaperService {
     //根据用户id查询问卷
     List<Paper> list(String userId);
 
+    //根据问卷id查询问卷
+    Paper list(Integer id);
+
     //根据问卷id删除问卷
     void delete(Integer id);
 

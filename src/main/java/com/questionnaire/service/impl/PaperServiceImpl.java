@@ -20,6 +20,12 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
+    //根据问卷id查询问卷
+    public Paper list(Integer id) {
+        return paperMapper.listPaperById(id);
+    }
+
+    @Override
     //根据问卷id删除问卷
     public void delete(Integer id){
         paperMapper.deletePaperById(id);
