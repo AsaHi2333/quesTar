@@ -4,11 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.questionnaire.mapper.OptMapper">
     <select id="listOptByQuestionId" resultType="com.questionnaire.pojo.Opt">
+
         SELECT * from opt where question_id=#{questionId}
     </select>
+
     <delete id="deleteOptById">
         DELETE from opt where id=#{id}
     </delete>
+
     <insert id="insert">
         INSERT opt
         <set>
@@ -17,6 +20,7 @@
             opt_name = #{optName}
         </set>
     </insert>
+
     <update id="update">
         UPDATE opt
         <set>
@@ -27,4 +31,5 @@
         where
             id = #{id}
     </update>
+
 </mapper>

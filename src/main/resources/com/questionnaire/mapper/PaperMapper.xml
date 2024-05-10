@@ -3,6 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.questionnaire.mapper.PaperMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT paper
+            <set>
+                id=#{id},
+                user_id=#{userId},
+                title=#{title},
+                create_time=#{createTime},
+                start_time=#{startTime},
+                end_time=#{endTime}
+            </set>
+    </insert>
+
     <update id="update">
         update paper
         <set>
@@ -21,4 +34,13 @@
         </set>
         where id = #{id}
     </update>
+
+    <delete id="deletePaperById">
+        DELETE from paper where id=#{id}
+    </delete>
+
+    <select id="listPaperByUserId" resultType="com.questionnaire.pojo.Paper">
+        SELECT * from paper where user_id=#{userId}
+    </select>
+
 </mapper>

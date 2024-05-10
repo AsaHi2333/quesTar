@@ -39,7 +39,7 @@ public class PaperController {
         log.info("新建问卷:{}",paper);
         //调用PaperService新建问卷
         paperService.add(paper);
-        return Result.success();
+        return Result.success(paper.getId());
     }
 
     //修改问卷（标题、开始时间、结束时间）
@@ -48,6 +48,6 @@ public class PaperController {
         log.info("修改问卷:{}",paper);
         //调用PaperService修改问卷
         paperService.update(paper);
-        return Result.success();
+        return Result.success(paper);
     }
 }
