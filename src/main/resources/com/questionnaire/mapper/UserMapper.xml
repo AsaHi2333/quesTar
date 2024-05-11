@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.questionnaire.mapper.UserMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT IGNORE into user (openid) values (#{openid});
+    </insert>
+
+    <update id="update">
+        update user
+        <set>
+            <if test = "username != null and username != '' ">
+                username = #{username},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="listUserByOpenid" resultType="com.questionnaire.pojo.User">
+        SELECT * from user where openid=#{openid} LIMIT 1
+    </select>
+</mapper>

@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.questionnaire.mapper.OptMapper">
     <select id="listOptByQuestionId" resultType="com.questionnaire.pojo.Opt">
-
         SELECT * from opt where question_id=#{questionId}
     </select>
 

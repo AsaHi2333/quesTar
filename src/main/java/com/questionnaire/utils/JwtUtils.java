@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class JwtUtils {
-    private static String signKey="queStar";//密钥
+    private static String signKey="wowanyuanshenzenmmele";//密钥
     private static Long expire=43200000L;//过期时间
     //生成jwt令牌
     public static String generateJwt(Map<String,Object> claims) {

@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private String id;//用户ID
-    private String username;//用户名（昵称）
-    private String password;//MD5加密后的密码
-    private LocalDateTime createTime;//注册时间
-    private LocalDateTime lastLoginTime;//最后登录时间
+    private Integer id;//用户ID
+    private String openid;//openid
+    private String username;//用户昵称
+    private String code;
 }
