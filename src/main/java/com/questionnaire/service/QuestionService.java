@@ -14,7 +14,7 @@ public interface QuestionService {
     void delete(Integer id);
 
     //新增问题
-    void add(Question question);
+    void add(List<Question> questions);
 
     //修改问题
     void update(Question question);

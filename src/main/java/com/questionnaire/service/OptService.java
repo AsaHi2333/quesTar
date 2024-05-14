@@ -12,7 +12,7 @@ public interface OptService {
     void delete(Integer id);
 
     //新建选项
-    void add(Opt opt);
+    void add(List<Opt> opts);
 
     //修改选项
     void update(Opt opt);

@@ -1,6 +1,8 @@
 package com.questionnaire.service.impl;
 
+import com.questionnaire.mapper.OptMapper;
 import com.questionnaire.mapper.PaperMapper;
+import com.questionnaire.mapper.QuestionMapper;
 import com.questionnaire.pojo.Paper;
 import com.questionnaire.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,41 @@ import java.util.List;
 public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperMapper paperMapper;
+    @Autowired
+    QuestionMapper questionMapper;
+    @Autowired
+    OptMapper optMapper;
+
     @Override
     //根据用户id查询问卷
     public List<Paper> list(String userId) {
-        return paperMapper.listPaperByUserId(userId);
+        List<Paper> paperList=paperMapper.listPaperByUserId(userId);
+        if(!paperList.isEmpty()) {
+            for (Paper paper : paperList) {
+                //将单个问卷的所有问题列出来
+                paper.setQuestions(questionMapper.listQuestionsByPaperId(paper.getId()));
+            }
+            for (Paper paper : paperList) {
+                for (int j = 0; j < paper.getQuestions().size(); j++) {
+                    //将单个问题中的所有选项列出来
+                    paper.getQuestions().get(j).setOptList(optMapper.listOptByQuestionId(paper.getQuestions().get(j).getId()));
+                }
+            }
+        }
+        return paperList;
     }
 
     @Override
     //根据问卷id查询问卷
     public Paper list(Integer id) {
-        return paperMapper.listPaperById(id);
+        Paper paper= paperMapper.listPaperById(id);
+        //将单个问卷的所有问题列出来
+        paper.setQuestions(questionMapper.listQuestionsByPaperId(paper.getId()));
+        for (int j = 0; j < paper.getQuestions().size(); j++) {
+            //将单个问题中的所有选项列出来
+            paper.getQuestions().get(j).setOptList(optMapper.listOptByQuestionId(paper.getQuestions().get(j).getId()));
+        }
+        return paper;
     }
 
     @Override
@@ -38,6 +65,31 @@ public class PaperServiceImpl implements PaperService {
         paper.setStartTime(LocalDateTime.now());
         paper.setEndTime(LocalDateTime.now());
         paperMapper.insert(paper);
+
+        //如果问卷里面有问题
+        if(paper.getQuestions()!=null&& !paper.getQuestions().isEmpty()) {
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                //将问卷里面的所有问题的paperId置为当前问卷id
+                paper.getQuestions().get(i).setPaperId(paper.getId());
+            }
+            //插入所有问题
+            questionMapper.insert(paper.getQuestions());
+
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                //如果问题里面有选项
+                if(paper.getQuestions().get(i).getOptList()!=null&& !paper.getQuestions().get(i).getOptList().isEmpty())
+                    for (int j = 0; j < paper.getQuestions().get(i).getOptList().size(); j++) {
+                        //将所有选项的paperId和questionId置为当前问卷id和对应问题id
+                        paper.getQuestions().get(i).getOptList().get(j).setPaperId(paper.getId());
+                        paper.getQuestions().get(i).getOptList().get(j).setQuestionId(paper.getQuestions().get(i).getId());
+                    }
+            }
+            //在对应问题中插入选项
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                if(paper.getQuestions().get(i).getOptList()!=null&& !paper.getQuestions().get(i).getOptList().isEmpty())
+                    optMapper.insert(paper.getQuestions().get(i).getOptList());
+            }
+        }
     }
 
     @Override

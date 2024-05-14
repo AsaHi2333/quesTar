@@ -35,10 +35,10 @@ public class OptController {
 
     //新建选项
     @PostMapping("/opt/add")
-    public Result add(@RequestBody Opt opt){
-        log.info("新建问卷:{}",opt);
+    public Result add(@RequestBody List<Opt> opts){
+        log.info("新建选项:{}",opts);
         //调用OptService新增选项
-        optService.add(opt);
+        optService.add(opts);
         return Result.success();
     }
 

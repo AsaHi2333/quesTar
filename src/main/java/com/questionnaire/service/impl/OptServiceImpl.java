@@ -27,8 +27,8 @@ public class OptServiceImpl implements OptService {
 
     //新建选项
     @Override
-    public void add(Opt opt) {
-        optMapper.insert(opt);
+    public void add(List<Opt> opts) {
+        optMapper.insert(opts);
     }
 
     //修改选项

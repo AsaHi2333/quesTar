@@ -3,13 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.questionnaire.mapper.QuestionMapper">
-    <insert id="insert">
-        INSERT question
-            <set>
-                paper_id = #{paperId},
-                question_type = #{questionType},
-                question_title = #{questionTitle}
-            </set>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO question
+        (paper_id,question_type,question_title)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.paperId},
+            #{item.questionType},
+            #{item.questionTitle}
+            )
+        </foreach>
     </insert>
 
     <update id="update">

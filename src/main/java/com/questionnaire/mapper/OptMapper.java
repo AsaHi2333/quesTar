@@ -16,7 +16,7 @@ public interface OptMapper {
     void deleteOptById(Integer id);
 
     //新建选项
-    void insert(Opt opt);
+    void insert(List<Opt> opts);
 
     //修改选项
     void update(Opt opt);

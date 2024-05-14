@@ -29,17 +29,17 @@ public class QuestionController {
     @DeleteMapping("/question/delete/{id}")
     public Result delete(@PathVariable Integer id){
         log.info("根据问卷id删除问卷:{}",id);
-        //调用QuestionService删除问卷
+        //调用QuestionService删除问题
         questionService.delete(id);
         return Result.success();
     }
 
     //新增问题
     @PostMapping("/question/add")
-    public Result add(@RequestBody Question question){
-        log.info("新建问卷:{}",question);
-        //调用QuestionService新建问卷
-        questionService.add(question);
+    public Result add(@RequestBody List<Question> questions){
+        log.info("新建问卷:{}",questions);
+        //调用QuestionService新建问题
+        questionService.add(questions);
         return Result.success();
     }
 

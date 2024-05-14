@@ -12,12 +12,16 @@
     </delete>
 
     <insert id="insert">
-        INSERT opt
-        <set>
-            paper_id = #{paperId},
-            question_id = #{questionId},
-            opt_name = #{optName}
-        </set>
+        INSERT INTO opt
+        (paper_id,question_id,opt_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.paperId},
+            #{item.questionId},
+            #{item.optName}
+            )
+        </foreach>
     </insert>
 
     <update id="update">

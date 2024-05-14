@@ -16,7 +16,7 @@ public interface QuestionMapper {
     void deletePaperById(Integer id);
 
     //添加一个问题
-    void insert(Question question);
+    void insert(List<Question> questions);
 
     //修改问题
     void update(Question question);
