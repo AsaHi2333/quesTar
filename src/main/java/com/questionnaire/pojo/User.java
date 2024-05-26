@@ -13,5 +13,7 @@ public class User {
     private Integer id;//用户ID
     private String openid;//openid
     private String username;//用户昵称
-    private String code;
+    private String code;//前端传来的code，用于微信登录
+    private String password;//密码
+    private String mobilePhoneNumber;//手机号
 }

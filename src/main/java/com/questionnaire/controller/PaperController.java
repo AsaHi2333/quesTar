@@ -17,7 +17,7 @@ public class PaperController {
 
     //根据用户id查询问卷
     @GetMapping("/paper/list/{userId}")
-    public Result list(@PathVariable String userId){
+    public Result listByUserId(@PathVariable String userId){
         log.info("根据用户id查询问卷:{}",userId);
         //调用PaperService查询问卷
         List<Paper> paperList=paperService.list(userId);
@@ -26,7 +26,7 @@ public class PaperController {
 
     //根据问卷id查询问卷
     @GetMapping("/paper/{id}")
-    public Result list(@PathVariable Integer id){
+    public Result listByPaperId(@PathVariable Integer id){
         log.info("根据问卷id查询问卷:{}",id);
         //调用PaperService查询问卷
         Paper paper =paperService.list(id);

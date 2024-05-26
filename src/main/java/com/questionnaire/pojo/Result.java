@@ -18,8 +18,6 @@ public class Result {
     //查询成功响应
     public static Result success(Object data) {return new Result(1,"success",data);}
 
-
-
     //失败响应
     public static Result error(String msg) {return new Result(0,msg,null);}
 }

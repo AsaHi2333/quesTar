@@ -1,6 +1,5 @@
 package com.questionnaire.controller;
 
-import com.questionnaire.pojo.Paper;
 import com.questionnaire.pojo.Question;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.service.QuestionService;

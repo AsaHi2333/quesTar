@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -18,44 +20,60 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
 
-    public static final String url="https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code";
-    public static final String appid="wxce43ed97d95a7766";
-    public static final String secret="7c1aed3ab9b3e8a60a405169b8d99d1e";
+    @Override
+    public String register(User user) {
+        if(MobileNumberValidator(user.getMobilePhoneNumber())) {
+            //手机号格式正确
+            if(PasswordValidator(user.getPassword())) {
+                //密码正确
+                if(userMapper.list(user)!=null)
+                    return "该用户已经存在";
+                else {
+                    userMapper.insert(user);
+                    return "注册成功";
+                }
+            }
+            else return "密码格式有误";
+        }
+        else
+            return "手机号格式有误";
+    }
 
     @Override
-    public User login(String code) {
+    public User login(User user) {
+        return userMapper.login(user);
+    }
+
+    @Override
+    //微信授权登录
+    public User wxlogin(String code) {
         //调用微信接口服务，获得当前微信用户的openId
         String openid = getOpenid(code);
         //判断OpenId是否为空，如果为空登录失败
-        if (openid == null)
+        if (openid == null || openid.isEmpty())
             return null;
-
-        if(userMapper.listUserByOpenid(openid)!=null){
-            return userMapper.listUserByOpenid(openid);
+        //如果不为空
+        User user = new User();
+        user.setOpenid(openid);
+        //如果已有用户，那么返回用户id
+        if(userMapper.list(user)!=null){
+            return userMapper.list(user);
         }
         else{
-            User user = new User();
-            user.setOpenid(openid);
+            //如果未有用户，那么创建用户并返回用户id
             userMapper.insert(user);
             return user;
         }
     }
 
     @Override
-    public void update(User user) {
-        userMapper.update(user);
+    public Boolean update(User user) {
+        if(userMapper.list(user)!=null) {
+            userMapper.update(user);
+            return true;
+        }
+        return false;
     }
 
-    private String getOpenid(String code){
-        //调用微信接口服务，获得当前微信用户的openId
-        Map<String,String> map = new HashMap<>();
-        map.put("appid",appid);
-        map.put("secret",secret);
-        map.put("js_code",code);
-        RestTemplate restTemplate = new RestTemplate();
-        String responseEntity =restTemplate.getForObject(url,String.class,map);
-        JSONObject jsonObject = JSONObject.parseObject(responseEntity);
-        return jsonObject.getString("openid");
-    }
 }
 

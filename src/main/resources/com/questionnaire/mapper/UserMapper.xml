@@ -4,7 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.questionnaire.mapper.UserMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT IGNORE into user (openid) values (#{openid});
+        INSERT user
+        <set>
+            <if test = "openid != null and openid != '' ">
+                openid=#{openid},
+            </if>
+            <if test = "username != null and username != '' ">
+                username=#{username},
+            </if>
+            <if test = "password != null and password != '' ">
+                password=#{password},
+            </if>
+            <if test = "mobilePhoneNumber != null and mobilePhoneNumber != '' ">
+                mobile_phone_number=#{mobilePhoneNumber},
+            </if>
+        </set>
     </insert>
 
     <update id="update">
@@ -17,7 +31,19 @@
         where id = #{id}
     </update>
 
-    <select id="listUserByOpenid" resultType="com.questionnaire.pojo.User">
-        SELECT * from user where openid=#{openid} LIMIT 1
+    <select id="list" resultType="com.questionnaire.pojo.User">
+        SELECT * from user
+        where id = #{id}
+           or (mobile_phone_number = #{mobilePhoneNumber} AND #{mobilePhoneNumber} IS NOT NULL)
+           or (openid = #{openid} AND #{openid} IS NOT NULL)
+        LIMIT 1
     </select>
+
+    <select id="login" resultType="com.questionnaire.pojo.User">
+        SELECT * from user
+        where (mobile_phone_number = #{mobilePhoneNumber} AND #{mobilePhoneNumber} IS NOT NULL)
+            AND (password = #{password} AND #{password} IS NOT NULL)
+    </select>
+
+
 </mapper>

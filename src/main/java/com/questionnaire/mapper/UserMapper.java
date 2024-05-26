@@ -9,9 +9,12 @@ public interface UserMapper {
     //新建用户
     void insert(User user);
 
-    //根据openid查询用户
-    User listUserByOpenid(String openid);
+    //根据手机号或openid或用户id或者账户和密码查询用户
+    User list(User user);
 
     //更改用户名
     void update(User user);
+
+    //登录
+    User login(User user);
 }
