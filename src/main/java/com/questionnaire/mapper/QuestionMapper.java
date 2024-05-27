@@ -13,7 +13,11 @@ public interface QuestionMapper {
 
     //根据问题id删除问题
     @Delete("DELETE from question where id=#{id}")
-    void deletePaperById(Integer id);
+    void deleteQuestionById(Integer id);
+
+    //根据问卷id删除问题
+    @Delete("DELETE from question where paper_id=#{paperId}")
+    void deleteQuestionByPaperId(Integer paperId);
 
     //添加一个问题
     void insert(List<Question> questions);

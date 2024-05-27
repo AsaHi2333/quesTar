@@ -51,7 +51,7 @@ public class PaperController {
         return Result.success(paper.getId());
     }
 
-    //修改问卷（标题、开始时间、结束时间）
+    //修改问卷
     @PutMapping("/paper/update")
     public Result update(@RequestBody Paper paper){
         log.info("修改问卷:{}",paper);

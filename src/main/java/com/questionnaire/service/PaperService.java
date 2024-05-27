@@ -19,6 +19,6 @@ public interface PaperService {
     //新建问卷
     void add(Paper paper);
 
-    //修改问卷（标题、开始时间、结束时间）
+    //修改问卷
     void update(Paper paper);
 }
