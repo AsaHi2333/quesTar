@@ -53,8 +53,10 @@ public class PaperController {
         return Result.success(paper.getId());
     }
 
+
     //修改问卷（标题、开始时间、结束时间）
     @PutMapping("/update")
+    //修改问卷
     public Result update(@RequestBody Paper paper){
         log.info("修改问卷:{}",paper);
         //调用PaperService修改问卷

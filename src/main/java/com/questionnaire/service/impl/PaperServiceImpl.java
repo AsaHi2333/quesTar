@@ -95,6 +95,33 @@ public class PaperServiceImpl implements PaperService {
     @Override
     //修改问卷（标题、开始时间、结束时间）
     public void update(Paper paper) {
+        //如果问卷里面有问题
+        if(paper.getQuestions()!=null&& !paper.getQuestions().isEmpty()) {
+            //先删除原先的问题
+            questionMapper.deleteQuestionByPaperId(paper.getId());
+
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                //将问卷里面的所有问题的paperId置为当前问卷id
+                paper.getQuestions().get(i).setPaperId(paper.getId());
+            }
+            //插入所有问题
+            questionMapper.insert(paper.getQuestions());
+
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                //如果问题里面有选项
+                if(paper.getQuestions().get(i).getOptList()!=null&& !paper.getQuestions().get(i).getOptList().isEmpty())
+                    for (int j = 0; j < paper.getQuestions().get(i).getOptList().size(); j++) {
+                        //将所有选项的paperId和questionId置为当前问卷id和对应问题id
+                        paper.getQuestions().get(i).getOptList().get(j).setPaperId(paper.getId());
+                        paper.getQuestions().get(i).getOptList().get(j).setQuestionId(paper.getQuestions().get(i).getId());
+                    }
+            }
+            //在对应问题中插入选项
+            for (int i = 0; i < paper.getQuestions().size(); i++) {
+                if(paper.getQuestions().get(i).getOptList()!=null&& !paper.getQuestions().get(i).getOptList().isEmpty())
+                    optMapper.insert(paper.getQuestions().get(i).getOptList());
+            }
+        }
         paperMapper.update(paper);
     }
 }

@@ -29,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
     //根据问题id删除问题
     @Override
     public void delete(Integer id) {
-        questionMapper.deletePaperById(id);
+        questionMapper.deleteQuestionById(id);
     }
 
     //新增问题Question question
