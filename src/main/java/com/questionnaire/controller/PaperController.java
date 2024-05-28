@@ -11,12 +11,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping("/paper")
+
 public class PaperController {
     @Autowired
     private PaperService paperService;
 
     //根据用户id查询问卷
-    @GetMapping("/paper/list/{userId}")
+    @GetMapping("/list/{userId}")
     public Result listByUserId(@PathVariable String userId){
         log.info("根据用户id查询问卷:{}",userId);
         //调用PaperService查询问卷
@@ -25,7 +27,7 @@ public class PaperController {
     }
 
     //根据问卷id查询问卷
-    @GetMapping("/paper/{id}")
+    @GetMapping("/{id}")
     public Result listByPaperId(@PathVariable Integer id){
         log.info("根据问卷id查询问卷:{}",id);
         //调用PaperService查询问卷
@@ -34,7 +36,7 @@ public class PaperController {
     }
 
     //根据问卷id删除问卷
-    @DeleteMapping("/paper/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id){
         log.info("根据问卷id删除问卷:{}",id);
         //调用PaperService删除问卷
@@ -43,7 +45,7 @@ public class PaperController {
     }
 
     //新建问卷
-    @PostMapping("/paper/add")
+    @PostMapping("/add")
     public Result add(@RequestBody Paper paper){
         log.info("新建问卷:{}",paper);
         //调用PaperService新建问卷
@@ -52,7 +54,7 @@ public class PaperController {
     }
 
     //修改问卷（标题、开始时间、结束时间）
-    @PutMapping("/paper/update")
+    @PutMapping("/update")
     public Result update(@RequestBody Paper paper){
         log.info("修改问卷:{}",paper);
         //调用PaperService修改问卷
