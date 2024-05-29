@@ -11,7 +11,7 @@
         DELETE from opt where id=#{id}
     </delete>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO opt
         (paper_id,question_id,opt_name)
         values

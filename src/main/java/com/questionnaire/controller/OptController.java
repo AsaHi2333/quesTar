@@ -1,12 +1,14 @@
 package com.questionnaire.controller;
 
 import com.questionnaire.pojo.Opt;
+import com.questionnaire.pojo.Question;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.service.OptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,7 +41,12 @@ public class OptController {
         log.info("新建选项:{}",opts);
         //调用OptService新增选项
         optService.add(opts);
-        return Result.success();
+        List<Integer> idList =new ArrayList<>();
+        for( Opt opt:opts)
+        {
+            idList.add(opt.getId());
+        }
+        return Result.success(idList);
     }
 
     //修改选项

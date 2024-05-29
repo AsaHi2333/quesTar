@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -39,7 +40,12 @@ public class QuestionController {
         log.info("新建问卷:{}",questions);
         //调用QuestionService新建问题
         questionService.add(questions);
-        return Result.success();
+        List<Integer> idList =new ArrayList<>();
+        for( Question question:questions)
+        {
+            idList.add(question.getId());
+        }
+        return Result.success(idList);
     }
 
     //修改问题（标题、问题类型、问题选项）
