@@ -11,6 +11,14 @@ public interface QuestionMapper {
     @Select("SELECT * from question where paper_id=#{id}")
     List<Question> listQuestionsByPaperId(Integer id);
 
+    //根据问卷id查询问卷标题
+    @Select("select question_title from question where id=#{questionId}")
+    String getQuestionTitle(Integer questionId);
+
+    //根据问卷id查询问卷类型
+    @Select("select question_type from question where id=#{questionId}")
+    String getQuestionType(Integer questionId);
+
     //根据问题id删除问题
     @Delete("DELETE from question where id=#{id}")
     void deleteQuestionById(Integer id);

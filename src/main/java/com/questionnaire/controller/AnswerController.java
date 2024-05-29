@@ -2,6 +2,7 @@ package com.questionnaire.controller;
 
 
 import com.questionnaire.pojo.Answer;
+import com.questionnaire.pojo.CompleteAnswer;
 import com.questionnaire.pojo.OptAnswer;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.service.AnswerService;
@@ -33,25 +34,16 @@ public class AnswerController {
         return Result.success();
     }
 
-    //查询某个问题的答案
+    //根据问题id查询该问题的完整答案
     @GetMapping("/getQuestionAnswer/{questionId}")
     public Result getQuestionAnswer(@PathVariable Integer questionId){
         log.info("查询问题的答案：{}",questionId);
 
-        List<OptAnswer> optAnswerList=answerService.getOptAnswerByQuestionId(questionId);
-
-        return Result.success(optAnswerList);
+        //List<OptAnswer> optAnswerList=answerService.getOptAnswerByQuestionId(questionId);
+        CompleteAnswer completeAnswer=answerService.getCompleteAnswerByQuestionId(questionId);
+        return Result.success(completeAnswer);
     }
 
-    //查询某个问卷的答案
-    @GetMapping("/getPaperAnswer")
-    public Result getPaperAnswer(){
-
-
-
-
-        return Result.success();
-    }
 
 
 
