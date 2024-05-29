@@ -16,14 +16,15 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperMapper paperMapper;
     @Autowired
-    QuestionMapper questionMapper;
+    private QuestionMapper questionMapper;
     @Autowired
-    OptMapper optMapper;
+    private OptMapper optMapper;
 
     @Override
     //根据用户id查询问卷
     public List<Paper> list(String userId) {
         List<Paper> paperList=paperMapper.listPaperByUserId(userId);
+        //查询出用户的所有问卷
         if(!paperList.isEmpty()) {
             for (Paper paper : paperList) {
                 //将单个问卷的所有问题列出来

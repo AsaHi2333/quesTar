@@ -27,6 +27,8 @@ public class PaperController {
     }
 
     //根据问卷id查询问卷
+    //？：前端什么时候回传一个问卷id进来呢？
+    //获取可以通过问卷名字来查
     @GetMapping("/{id}")
     public Result listByPaperId(@PathVariable Integer id){
         log.info("根据问卷id查询问卷:{}",id);

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Opt {
+    //选项的基本信息
     private Integer id;//选项id
     private Integer paperId;//问卷id
     private Integer questionId;//问题id

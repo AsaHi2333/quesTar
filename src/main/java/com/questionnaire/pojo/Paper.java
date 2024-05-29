@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paper {
+        //问卷的基本信息，不包含答案
         private Integer id;//试卷ID
         private Integer userId;//用户ID，外键
         private String title;//试卷标题
@@ -19,5 +20,6 @@ public class Paper {
         private Integer status;//状态值：0：未发布1：已发布2：已结束
         private LocalDateTime startTime;//开始时间
         private LocalDateTime endTime;//结束时间
+
         private List<Question> questions;//问卷内包含的问题
 }

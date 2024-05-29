@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    //用户的基本信息
     private Integer id;//用户ID
     private String openid;//openid
     private String username;//用户昵称
