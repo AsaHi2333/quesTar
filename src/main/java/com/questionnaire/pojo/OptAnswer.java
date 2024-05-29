@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//单挑选项的结果
+//单条选项的结果
 public class OptAnswer {
     String name;//选项名字
     Integer count;//选项统计

@@ -17,5 +17,8 @@ public interface AnswerMapper {
     @Select("select count(*) from answer where opt_id=#{optId} ")
     Integer countOpt(Integer optId);
 
+    //针对文本题：根据问题id查询答案
+    @Select("select * from answer where question_id=#{quetionId}")
+    List<Answer> answerList(Integer questionId);
 
 }
