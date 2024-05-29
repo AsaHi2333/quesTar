@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PaperServiceImpl implements PaperService {
@@ -123,6 +124,8 @@ public class PaperServiceImpl implements PaperService {
                     optMapper.insert(paper.getQuestions().get(i).getOptList());
             }
         }
-        paperMapper.update(paper);
+        //如果其他的都等于空就不更改基本信息
+        if(paper.getTitle()!=null& !Objects.equals(paper.getTitle(), "") &paper.getStartTime()!=null&paper.getEndTime()!=null)
+            paperMapper.update(paper);
     }
 }
