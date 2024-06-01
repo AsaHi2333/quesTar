@@ -2,10 +2,9 @@ package com.questionnaire.service.impl;
 
 import com.questionnaire.mapper.AnswerMapper;
 import com.questionnaire.mapper.OptMapper;
+import com.questionnaire.mapper.PaperMapper;
 import com.questionnaire.mapper.QuestionMapper;
-import com.questionnaire.pojo.Answer;
-import com.questionnaire.pojo.CompleteAnswer;
-import com.questionnaire.pojo.OptAnswer;
+import com.questionnaire.pojo.*;
 import com.questionnaire.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,8 @@ public class AnswerServiceImpl implements AnswerService {
     private OptMapper optMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private PaperMapper paperMapper;
 
     @Override
     public void add(List<Answer> answers) {
@@ -41,18 +42,30 @@ public class AnswerServiceImpl implements AnswerService {
         //获取所有optid
         List<Integer> optIdList= optMapper.optIdList(questionId);
         List<OptAnswer> optAnswerList=new ArrayList<>();
+
+        //统计所有选项选择人数的总数
+        Integer sum=0;
+        for(Integer optId:optIdList)
+        {
+            Integer perCount=answerMapper.countOpt(optId);
+            sum+=perCount;
+        }
+
         for(Integer optId : optIdList)
         {
             //单条optanswer封装
             String name=optMapper.optName(optId);//选项名称
             Integer count =answerMapper.countOpt(optId);//选项答案数量
-            optAnswerList.add(new OptAnswer(name,count));
+            Double rate= count*1.0/(sum*1.0)*100;
+            optAnswerList.add(new OptAnswer(name,count,rate));
         }
 
         return optAnswerList;
     }
 
+
     //通过问题id获取完整的问题答案（包括选择题和文本题）
+    @Override
     public CompleteAnswer getCompleteAnswerByQuestionId(Integer questionId)
     {
         //获取选择题答案
@@ -75,7 +88,20 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
 
-
-
-
+    @Override
+    public CompleteAnswerPlusPaperTitle getPaperAnswerByPaperId(Integer paperId) {
+        //根据问卷id查询问卷标题
+        String paperTitle=paperMapper.listPaperById(paperId).getTitle();
+        //根据问卷id查询出所有问题的id
+        List<Question> questionList=questionMapper.listQuestionsByPaperId(paperId);
+        //对于每一条问题，查询其单条答案并封装进完整答案类当中
+        List<CompleteAnswer> completeAnswerList=new ArrayList<>();
+        for(Question question :questionList)
+        {
+            CompleteAnswer completeAnswer=getCompleteAnswerByQuestionId(question.getId());
+            completeAnswerList.add(completeAnswer);
+        }
+        CompleteAnswerPlusPaperTitle completeAnswerPlusPaperTitle=new CompleteAnswerPlusPaperTitle(paperTitle,completeAnswerList);
+        return completeAnswerPlusPaperTitle;
+    }
 }

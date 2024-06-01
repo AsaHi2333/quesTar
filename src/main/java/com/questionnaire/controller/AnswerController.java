@@ -1,15 +1,13 @@
 package com.questionnaire.controller;
 
 
-import com.questionnaire.pojo.Answer;
-import com.questionnaire.pojo.CompleteAnswer;
-import com.questionnaire.pojo.OptAnswer;
-import com.questionnaire.pojo.Result;
+import com.questionnaire.pojo.*;
 import com.questionnaire.service.AnswerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,7 +42,15 @@ public class AnswerController {
         return Result.success(completeAnswer);
     }
 
+    @GetMapping("/getPaperAnswer/{paperId}")
+    public Result getPaperAnswer(@PathVariable Integer paperId)
+    {
+       log.info("查询问卷的所有问题的答卷：{}",paperId);
+        CompleteAnswerPlusPaperTitle completeAnswerPlusPaperTitle=answerService.getPaperAnswerByPaperId(paperId);
 
+
+        return Result.success(completeAnswerPlusPaperTitle);
+    }
 
 
 

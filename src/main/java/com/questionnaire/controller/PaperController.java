@@ -65,4 +65,11 @@ public class PaperController {
         paperService.update(paper);
         return Result.success(paper);
     }
+
+
+
+
+
+
+
 }
