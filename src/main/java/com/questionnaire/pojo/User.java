@@ -16,5 +16,6 @@ public class User {
     private String username;//用户昵称
     private String code;//前端传来的code，用于微信登录
     private String password;//密码
-    private String mobilePhoneNumber;//手机号
+    private String emailNumber;//邮箱
+    private String token;//验证码，用于注册
 }

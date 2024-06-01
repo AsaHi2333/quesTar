@@ -3,16 +3,21 @@ package com.questionnaire.service;
 import com.alibaba.fastjson.JSONObject;
 import com.questionnaire.pojo.User;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public interface UserService {
+
     String url="https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code";
     String appid="wxce43ed97d95a7766";
     String secret="7c1aed3ab9b3e8a60a405169b8d99d1e";
@@ -27,7 +32,13 @@ public interface UserService {
     User wxlogin(String code);
 
     //修改用户名
-    Boolean update(User user);
+    Boolean updateUsername(User user);
+
+    //修改密码
+    String updatePassword(User user);
+
+    //发送验证码
+    String sendEmail(String emailNumber);
 
     default boolean PasswordValidator(String password) {
         //通过正则表达式判断密码是否符合格式
@@ -41,11 +52,11 @@ public interface UserService {
         return matcher.matches();
     }
 
-    default boolean MobileNumberValidator(String mobileNumber) {
-        //通过正则表达式验证手机号是否符合格式
-        String regex = "^1[3456789]\\d{9}$";
+    default boolean emailNumberValidator(String emailNumber) {
+        //通过正则表达式验证邮箱是否符合格式
+        String regex = "^[0-9a-zA-Z_-]+@[0-9a-zA-Z_-]+\\.(com|cn|net|vip|cloud)$";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(mobileNumber);
+        Matcher matcher = pattern.matcher(emailNumber);
         return matcher.matches();
     }
 
@@ -60,4 +71,20 @@ public interface UserService {
         JSONObject jsonObject = JSONObject.parseObject(responseEntity);
         return jsonObject.getString("openid");
     }
+
+    //生成验证码
+    default String createToken() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        StringBuilder code = new StringBuilder(4);
+        Random random = new Random();
+
+        for (int i = 0; i < 4; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            code.append(CHARACTERS.charAt(index));
+        }
+
+        return code.toString();
+    }
+
 }

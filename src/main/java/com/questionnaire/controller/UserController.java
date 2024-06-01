@@ -1,8 +1,5 @@
 package com.questionnaire.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.questionnaire.pojo.Paper;
-import com.questionnaire.pojo.Question;
 import com.questionnaire.pojo.Result;
 import com.questionnaire.pojo.User;
 import com.questionnaire.service.UserService;
@@ -10,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -24,16 +20,10 @@ public class UserController {
     public Result register(@RequestBody User user){
         log.info("用户注册:{}",user);
         //调用UserService注册
-        if(Objects.equals(userService.register(user), "注册成功"))
+        String check=userService.register(user);
+        if(Objects.equals(check, "注册成功"))
             return Result.success(user.getId());
-        if(Objects.equals(userService.register(user), "手机号格式有误"))
-            return Result.error("手机号格式有误");
-        if(Objects.equals(userService.register(user), "密码格式有误"))
-            return Result.error("密码格式有误");
-        if(Objects.equals(userService.register(user), "该用户已经存在"))
-            return Result.error("已存在此用户");
-        //我也不知道什么情况会出现注册失败，但写着保险
-        return Result.error("注册失败");
+        return Result.error(check);
     }
 
     //账密登录
@@ -58,13 +48,40 @@ public class UserController {
         return Result.error("微信授权登录失败");
     }
 
+    //发送验证码
+    @PostMapping("/user/token")
+    public Result token(@RequestBody User user){
+        String token=userService.sendEmail(user.getEmailNumber());
+        return Result.success("已发送");
+    }
+
     //修改用户名
-    @PutMapping("/user/update")
-    public Result update(@RequestBody User user){
+    @PutMapping("/user/update/username")
+    public Result updateUsername(@RequestBody User user){
         log.info("修改用户名:{}",user);
-        //调用UserService修改问卷
-        if(userService.update(user))
+        //调用UserService修改用户名
+        if(userService.updateUsername(user))
             return Result.success(user);
         return Result.error("修改用户名失败");
     }
+
+    //更改密码
+    @PutMapping("/user/update/password")
+    public Result updatePassword(@RequestBody User user){
+        log.info("修改密码:{}",user);
+        //调用UserService修改密码
+        String check=userService.updatePassword(user);
+        if(Objects.equals(check, "修改密码成功"))
+            return Result.success("修改密码成功");
+        if(Objects.equals(check, "新密码不应与旧密码相同"))
+            return Result.error("新密码不应与旧密码相同");
+        if(Objects.equals(check, "新密码不符合格式"))
+            return Result.error("新密码不符合格式");
+        if(Objects.equals(check, "验证码不存在或者过期"))
+            return Result.error("验证码不存在或者过期");
+        if(Objects.equals(check, "验证码错误"))
+            return Result.error("验证码错误");
+        return Result.error("修改密码失败");
+    }
+
 }

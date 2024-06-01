@@ -9,7 +9,7 @@ public interface UserMapper {
     //新建用户
     void insert(User user);
 
-    //根据手机号或openid或用户id或者账户和密码查询用户
+    //根据邮箱或openid或用户id或者邮箱号查询用户
     User list(User user);
 
     //更改用户名

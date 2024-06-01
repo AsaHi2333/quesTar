@@ -15,8 +15,8 @@
             <if test = "password != null and password != '' ">
                 password=#{password},
             </if>
-            <if test = "mobilePhoneNumber != null and mobilePhoneNumber != '' ">
-                mobile_phone_number=#{mobilePhoneNumber},
+            <if test = "emailNumber != null and emailNumber != '' ">
+                email_number=#{emailNumber},
             </if>
         </set>
     </insert>
@@ -27,6 +27,9 @@
             <if test = "username != null and username != '' ">
                 username = #{username},
             </if>
+            <if test = "password != null and password != '' ">
+                password = #{password},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -34,14 +37,13 @@
     <select id="list" resultType="com.questionnaire.pojo.User">
         SELECT * from user
         where id = #{id}
-           or (mobile_phone_number = #{mobilePhoneNumber} AND #{mobilePhoneNumber} IS NOT NULL)
+           or (email_number = #{emailNumber} AND #{emailNumber} IS NOT NULL)
            or (openid = #{openid} AND #{openid} IS NOT NULL)
-        LIMIT 1
     </select>
 
     <select id="login" resultType="com.questionnaire.pojo.User">
         SELECT * from user
-        where (mobile_phone_number = #{mobilePhoneNumber} AND #{mobilePhoneNumber} IS NOT NULL)
+        where (email_number = #{emailNumber} AND #{emailNumber} IS NOT NULL)
             AND (password = #{password} AND #{password} IS NOT NULL)
     </select>
 
