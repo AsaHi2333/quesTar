@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class OptAnswer {
     String name;//选项名字
     Integer count;//选项统计
-    Double rate;//选项所占比率
+    String rate;//选项所占比率
 }

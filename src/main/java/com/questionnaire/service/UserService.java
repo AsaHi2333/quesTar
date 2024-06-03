@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 public interface UserService {
 
     String url="https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type=authorization_code";
-    String appid="wxce43ed97d95a7766";
-    String secret="7c1aed3ab9b3e8a60a405169b8d99d1e";
+    String appid="wxab60426f28c035a3";
+    String secret="b2abf4646db2a97ef9b5237796ab9d74";
 
     //用户注册
     String register(User user);

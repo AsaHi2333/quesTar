@@ -56,8 +56,13 @@ public class AnswerServiceImpl implements AnswerService {
             //单条optanswer封装
             String name=optMapper.optName(optId);//选项名称
             Integer count =answerMapper.countOpt(optId);//选项答案数量
-            Double rate= count*1.0/(sum*1.0)*100;
-            optAnswerList.add(new OptAnswer(name,count,rate));
+            if(sum!=0) {
+                Double rate = (double) count / ((double) sum) * 100;
+                String formattedResult = String.format("%.2f", rate);
+                optAnswerList.add(new OptAnswer(name,count,formattedResult));
+            }
+            else
+                optAnswerList.add(new OptAnswer(name,count,"0"));
         }
 
         return optAnswerList;
