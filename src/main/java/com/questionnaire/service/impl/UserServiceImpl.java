@@ -63,6 +63,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User list(User user){
+        return userMapper.list(user);
+    }
+
+    @Override
     //微信授权登录
     public User wxlogin(String code) {
         //调用微信接口服务，获得当前微信用户的openId
@@ -127,6 +132,8 @@ public class UserServiceImpl implements UserService{
 
     //发送验证码
     public String sendEmail(String emailNumber) {
+        if (!emailNumberValidator(emailNumber))
+            return "邮箱格式错误";
         //生成验证码
         String token=createToken();
 

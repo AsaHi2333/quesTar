@@ -40,6 +40,9 @@ public interface UserService {
     //发送验证码
     String sendEmail(String emailNumber);
 
+    //根据用户id查询
+    User list(User user);
+
     default boolean PasswordValidator(String password) {
         //通过正则表达式判断密码是否符合格式
         /*字符为数字或字母

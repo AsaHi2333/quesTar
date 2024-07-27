@@ -32,9 +32,23 @@ public class UserController {
         log.info("账密登录:{}",user);
         //调用UserService登录
         User temp = userService.login(user);
-        if(temp!=null)
-            return Result.success(temp.getId());
+        if(temp!=null) {
+            temp.setPassword("********");
+            return Result.success(temp);
+        }
         return Result.error("登录失败");
+    }
+
+    //根据用户id查询用户信息
+    @GetMapping("/user/list/{userid}")
+    public Result listByUserid(@PathVariable Integer userid){
+        User user=new User();
+        user.setId(userid);
+        log.info("查询用户:{}",user);
+        //调用UserService查询
+        User temp = userService.list(user);
+        temp.setPassword(null);
+        return Result.success(temp);
     }
 
     //微信授权登录
@@ -51,7 +65,9 @@ public class UserController {
     //发送验证码
     @PostMapping("/user/token")
     public Result token(@RequestBody User user){
-        String token=userService.sendEmail(user.getEmailNumber());
+        String res=userService.sendEmail(user.getEmailNumber());
+        if(Objects.equals(res, "邮箱格式错误"))
+            return Result.error("邮箱格式错误");
         return Result.success("已发送");
     }
 
